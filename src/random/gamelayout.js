@@ -90,16 +90,16 @@ const G_DATA = [
     rm: { os: "Windows 8", cpu: "Intel Core i3", ram: "8 GB RAM", gpu: "GTX 1050" },
     rr: { os: "Windows 10", cpu: "Intel Core i5 8600K", ram: "16 GB RAM", gpu: "GTX 1070" }
   },
-   { 
+  { 
     id: 'MC120', 
     n: "Minecraft 1.20 Browser (Eagler Craft)", 
     dev: "Some random dude", 
-    url: "https://yee.pages.dev/#/bW9yZS9tb3JlL21vZGRlZC9lYWdseWpz", // game link
-    img: "https://cdn.mos.cms.futurecdn.net/AZ4nyhrARyZhc69hMXAy3L.jpg",  // thumbnail
-    bg: "https://cdn.mos.cms.futurecdn.net/AZ4nyhrARyZhc69hMXAy3L.jpg", // thumbnail
+    url: "https://yee.pages.dev/#/bW9yZS9tb3JlL21vZGRlZC9lYWdseWpz",
+    img: "https://cdn.mos.cms.futurecdn.net/AZ4nyhrARyZhc69hMXAy3L.jpg",
+    bg: "https://cdn.mos.cms.futurecdn.net/AZ4nyhrARyZhc69hMXAy3L.jpg",
     ach: 45, 
     tags: ["Minecraft", "Open World", "RPG", "Sci-fi"],
-    desc: "Minecraft is a critically acclaimed 3D sandbox video game developed by the Swedish studio Mojang Studios. It has no specific goals, offering players absolute freedom to explore, build, and craft. The game world is made of 3D blocks representing materials like dirt, stone, and wood.",
+    desc: "Minecraft is a critically acclaimed 3D sandbox video game developed by the Swedish studio Mojang Studios. It has no specific goals, offering players absolute freedom to explore, build, and craft.",
     rm: { os: "Potato", cpu: "Potato", ram: "Potato", gpu: "Potato" },
     rr: { os: "Monster", cpu: "Monster", ram: "Monster", gpu: "Monster" }
   },
@@ -645,13 +645,13 @@ const G_DATA = [
     bg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1119730/library_hero.jpg", 
     ach: 20, 
     tags: ["Simulation", "Farming", "Open World", "Casual"],
-    desc: "Builder. Farmer. Hunter. Trader. Ranching certainly isn’t your average job. Take over your family's dilapidated homestead and turn it into the most prosperous ranch in the valley.",
+    desc: "Builder. Farmer. Hunter. Trader. Ranching certainly isn't your average job. Take over your family's dilapidated homestead and turn it into the most prosperous ranch in the valley.",
     rm: { os: "Windows 10", cpu: "Intel Core i5-3570K", ram: "8 GB RAM", gpu: "GTX 760" },
     rr: { os: "Windows 10", cpu: "Intel Core i7-4770K", ram: "16 GB RAM", gpu: "GTX 1070" }
   },
   { 
     id: '625', 
-    n: "Marvel’s Spider-Man Remastered", 
+    n: "Marvel's Spider-Man Remastered", 
     dev: "Insomniac Games", 
     url: "https://www.raccoongame.com/wap/dist/#/platform/cloudgame/gamedetail?gid=625&name=Marvel%E2%80%99s%2520Spider-Man%2520Remastered", 
     img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900.jpg", 
@@ -879,7 +879,7 @@ const G_DATA = [
     bg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1293830/library_hero.jpg", 
     ach: 50, 
     tags: ["Racing", "Open World", "Cars", "Simulation"],
-    desc: "Dynamic seasons change everything at the world’s greatest automotive festival. Go it alone or team up with others to explore beautiful and historic Britain.",
+    desc: "Dynamic seasons change everything at the world's greatest automotive festival. Go it alone or team up with others to explore beautiful and historic Britain.",
     rm: { os: "Windows 10", cpu: "Intel Core i3-4170", ram: "8 GB RAM", gpu: "GTX 650 Ti" },
     rr: { os: "Windows 10", cpu: "Intel Core i7-3820", ram: "12 GB RAM", gpu: "GTX 1060" }
   },
@@ -892,7 +892,7 @@ const G_DATA = [
     bg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/557340/library_hero.jpg", 
     ach: 25, 
     tags: ["Action", "Shooter", "Platformer", "Indie"],
-    desc: "A violent ballet about friendship, imagination, and one man’s struggle to obliterate anyone in his path at the behest of a sentient banana.",
+    desc: "A violent ballet about friendship, imagination, and one man's struggle to obliterate anyone in his path at the behest of a sentient banana.",
     rm: { os: "Windows 7", cpu: "Intel Core i3", ram: "4 GB RAM", gpu: "Integrated Graphics" },
     rr: { os: "Windows 10", cpu: "Intel Core i5", ram: "8 GB RAM", gpu: "GTX 750" }
   },
@@ -961,7 +961,7 @@ const G_DATA = [
     rm: { os: "Windows 10", cpu: "Intel Core i5", ram: "8 GB RAM", gpu: "GTX 660" },
     rr: { os: "Windows 10", cpu: "Intel Core i7", ram: "8 GB RAM", gpu: "GTX 960" }
   },
-    { 
+  { 
     id: '1024', 
     n: "Destiny 2", 
     dev: "Bungie", 
@@ -1152,7 +1152,7 @@ const G_DATA = [
     bg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1544020/library_hero.jpg", 
     ach: 26, 
     tags: ["Horror", "Sci-Fi", "Survival Horror", "Action"],
-    desc: "Survive to escape the horrors of Callisto and uncover the dark secrets of Jupiter’s dead moon in this narrative-driven survival horror game.",
+    desc: "Survive to escape the horrors of Callisto and uncover the dark secrets of Jupiter's dead moon in this narrative-driven survival horror game.",
     rm: { os: "Windows 10", cpu: "Intel Core i5-8400", ram: "8 GB RAM", gpu: "GTX 1060" },
     rr: { os: "Windows 10", cpu: "Intel Core i7-8700", ram: "16 GB RAM", gpu: "GTX 1070" }
   },
@@ -1217,7 +1217,7 @@ const G_DATA = [
     bg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/782330/library_hero.jpg", 
     ach: 34, 
     tags: ["FPS", "Action", "Gore", "Fast-Paced"],
-    desc: "Hell’s armies have invaded Earth. Become the Slayer in an epic single-player campaign to conquer demons across dimensions and stop the final destruction of humanity.",
+    desc: "Hell's armies have invaded Earth. Become the Slayer in an epic single-player campaign to conquer demons across dimensions and stop the final destruction of humanity.",
     rm: { os: "Windows 10", cpu: "Intel Core i5 @ 3.3 GHz", ram: "8 GB RAM", gpu: "GTX 1050 Ti" },
     rr: { os: "Windows 10", cpu: "Intel Core i7-6700K", ram: "16 GB RAM", gpu: "GTX 1080" }
   },
@@ -1308,7 +1308,7 @@ const G_DATA = [
     bg: "https://fanatical.imgix.net/product/original/0d511423-f725-45e1-9b5e-5f58e066ea1b.jpg?auto=compress,format&w=870&fit=crop&h=489", 
     ach: 35, 
     tags: ["Fighting", "Anime", "Action", "Multiplayer"],
-    desc: "A dynamic and colourful new fighting game featuring the world’s most famous pirate: Monkey D. Luffy.",
+    desc: "A dynamic and colourful new fighting game featuring the world's most famous pirate: Monkey D. Luffy.",
     rm: { os: "Windows 7", cpu: "Intel Core i3-4170", ram: "4 GB RAM", gpu: "GTX 460" },
     rr: { os: "Windows 10", cpu: "Intel Core i5-4690K", ram: "8 GB RAM", gpu: "GTX 960" }
   },
@@ -1360,7 +1360,7 @@ const G_DATA = [
     bg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1057090/library_hero.jpg", 
     ach: 37, 
     tags: ["Metroidvania", "Platformer", "Beautiful", "Soundtrack"],
-    desc: "Embark on an all-new adventure in a vast, exotic world where you’ll encounter towering enemies and challenging puzzles on your quest to unravel Ori’s destiny.",
+    desc: "Embark on an all-new adventure in a vast, exotic world where you'll encounter towering enemies and challenging puzzles on your quest to unravel Ori's destiny.",
     rm: { os: "Windows 10", cpu: "AMD Athlon X4", ram: "8 GB RAM", gpu: "GTX 950" },
     rr: { os: "Windows 10", cpu: "Intel Core i5", ram: "8 GB RAM", gpu: "GTX 1050 Ti" }
   },
@@ -1373,7 +1373,7 @@ const G_DATA = [
     bg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/572430/library_hero.jpg", 
     ach: 25, 
     tags: ["Action", "Strategy", "Stealth", "Pixel Art"],
-    desc: "You dream of getting some sleep, but it’s 3am and your neighbors are having a loud party. Stop them using stealth, strategy, and whatever you can find.",
+    desc: "You dream of getting some sleep, but it's 3am and your neighbors are having a loud party. Stop them using stealth, strategy, and whatever you can find.",
     rm: { os: "Windows 10", cpu: "Intel Core i3", ram: "4 GB RAM", gpu: "GTX 460" },
     rr: { os: "Windows 10", cpu: "Intel Core i5", ram: "8 GB RAM", gpu: "GTX 750 Ti" }
   }
