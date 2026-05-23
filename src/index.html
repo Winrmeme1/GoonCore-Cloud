@@ -1,6 +1,6 @@
 <! --
 
-WELCOME TO CINE CLOUD,
+WELCOME TO GOONCORE CLOUD,
 
 As i promised code is 100% opensourced, feel free to fork it, copy it, remake it whatever.
 
@@ -14,7 +14,7 @@ I should have put like helpful comments for ya here and there that can help you.
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cine-Cloud OS</title>
+<title>GoonCore-Cloud OS</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap');
 
@@ -28,15 +28,6 @@ I should have put like helpful comments for ya here and there that can help you.
   --muted: #888890; 
   --accent: #ffffff;
 }
-
-
-
-
-
-
-
-
-
 
 
   /*BODY */
@@ -150,7 +141,7 @@ body {
 }
 
 
-  /*Hobver Animation*/
+  /*Hover Animation*/
 .hero-cont:hover {
   transform: translateY(-6px); box-shadow: 0 30px 80px rgba(0,0,0,0.8); border-color: rgba(255,255,255,0.2);
 }
@@ -232,8 +223,6 @@ body {
   
 .d-logo:hover { opacity: 1; transform: scale(1.1); }
 .d-sep { width: 1px; height: 24px; background: var(--border); margin: 0 6px; }
-
-
 
 
   
@@ -320,7 +309,7 @@ body {
   display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 30px;
 }
 .m-play:hover { background: #e0e0e0; box-shadow: 0 10px 25px rgba(255,255,255,0.15); transform: translateY(-3px); }
-/*PLACE .ms here -4/29/26*/
+
 .m-stats { background: rgba(20,20,20,0.4); border: 1px solid var(--border); border-radius: 16px; padding: 25px; display: flex; flex-direction: column; gap: 20px; backdrop-filter: blur(15px);}
 .m-rw { display: flex; justify-content: space-between; align-items: center; }
 .m-rw small { font-size: 12px; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
@@ -370,7 +359,7 @@ body {
 .popup-btn.secondary { background: rgba(255,255,255,0.1); color: #fff; }
 .popup-btn:not(:disabled):hover { transform: translateY(-2px); }
 
-/*  Tutorial Page n iFrames, uh this is the ui for the Tutorial page i made  */
+/*  Tutorial Page n iFrames  */
 .tut-cnt { max-width: 900px; margin: 0 auto; text-align: center; }
 .tut-cnt video { width: 100%; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 30px 60px rgba(0,0,0,0.6); margin-bottom: 30px; background: #000; }
 
@@ -416,7 +405,7 @@ body {
 <div style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; gap: 10px;">
   <div class="top-notch" onclick="tglV('h')" style="position: relative; left: auto; top: auto; transform: none; cursor: pointer;">
     <img src="https://freepngimg.com/convert-png/89656-icons-circle-computer-black-white-steam" alt="Logo">
-    <span>Cine-Cloud by C.S</span> <! Just incase you dont know C.S stands for Cine-Softwares !>
+    <span>GoonCore-Cloud</span>
   </div>
   <div class="top-notch" id="n-game" onclick="tglV('g')" style="position: relative; left: auto; top: auto; transform: none; cursor: pointer; display: none; background: rgba(255,255,255,0.15);">
     <span id="n-game-title" style="color: #fff;">Game</span>
@@ -430,7 +419,7 @@ body {
     
     <img src="https://freepngimg.com/convert-png/89656-icons-circle-computer-black-white-steam" class="boot-icon" alt="Logo">
     
-    <div class="boot-text">CINE-CLOUD</div>
+    <div class="boot-text">GOONCORE-CLOUD</div>
   </div>
 </div>
 
@@ -438,10 +427,10 @@ body {
 
 <div id="app-wrap">
 
-  <div id="v-cine" class="tab-view active">
+  <div id="v-home" class="tab-view active">
     <div id="error-fallback" style="display:none;"></div>
     
-    <div id="cine-content">
+    <div id="home-content">
       <div class="sec-head" id="hc-head" style="margin-top:0;">Continue Playing</div>
       <div class="hero-cont" id="hc-box" onclick="">
         <img src="" id="hc-img" class="h-img">
@@ -461,7 +450,7 @@ body {
         </div>
       </div>
 
-      <div class="sec-head">Games We Recommend</div> <! NOTE: FIND A REAL !>
+      <div class="sec-head">Games We Recommend</div>
       <div class="marquee-wrap">
         <div class="marquee-track" id="g-recom-track"></div>
       </div>
@@ -479,7 +468,7 @@ body {
       <div class="grid-h" id="g-trnd"></div>
     </div>
   </div>
- <! Might add mroe in later updates !>
+
   <div id="v-lib" class="tab-view">
     <div class="sec-head" style="margin-top:0;">Complete Library</div>
     <div class="lib-search-wrap">
@@ -494,14 +483,14 @@ body {
       <h1 style="font-weight: 400; font-size: 42px; margin-bottom: 12px; letter-spacing:-1px;">Setup Guide</h1>
       <p style="color: #888; margin-bottom: 40px; font-size: 15px;">Make sure you watch this quick video so everything runs smoothly.</p>
       
-      <video controls><source src="Tutorial.mp4" type="video/mp4"></video> <! IF YOUR MAKING YOUR OWN VERSION, You can change the path and title for the tutorial or remove it i guess !>
+      <video controls><source src="Tutorial.mp4" type="video/mp4"></video>
       
       <button class="show-login-btn" id="login-trigger" onclick="openAuthTray()">Log in to play</button>
 
       <div id="auth-success" style="display:none;">
         <div class="auth-success-box">
             <h3>You're All Set!</h3>
-            <p>Your Logged In and ready.</p> <! Auto like detect when the user logs in by checking iframe url !>
+            <p>You're logged in and ready.</p>
         </div>
       </div>
       
@@ -519,7 +508,7 @@ body {
         </div>
         <div class="f-box" id="mail-wrapper">
           <h3>Need a temp email?</h3>
-          <iframe class="f-mail" src="https://tempmail.ing/"></iframe> <! this is the link we iframe to the user to give them a temp link !>
+          <iframe class="f-mail" src="https://tempmail.ing/"></iframe>
         </div>
       </div>
     </div>
@@ -532,7 +521,7 @@ body {
   <div class="main-dock">
     <img src="https://freepngimg.com/convert-png/89656-icons-circle-computer-black-white-steam" class="d-logo">
     <div class="d-sep"></div>
-    <div class="d-btn active" id="b-cine" onclick="chgTab('cine')">Cine</div>
+    <div class="d-btn active" id="b-home" onclick="chgTab('home')">GoonCore</div>
     <div class="d-btn" id="b-lib" onclick="chgTab('lib')">Library</div>
     <div class="d-btn" id="b-tut" onclick="chgTab('tut')">Tutorial</div>
   </div>
@@ -599,13 +588,13 @@ body {
   <div class="popup-box" style="max-width: 500px;">
     <div class="popup-icon-container" style="background:rgba(255,200,0,0.1); border:1px solid rgba(255,200,0,0.2);">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffc800" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-    </div> <! putting this here so i dont get in trouble ;) !>
+    </div>
     <h2>Legal Notice & Disclaimer</h2>
     <div id="legal-scroll" style="max-height:160px; overflow-y:auto; font-size:13px; line-height: 1.6; color:#aaa; text-align:left; padding:15px; background:rgba(0,0,0,0.3); border-radius:12px; margin-bottom:20px; border: 1px solid var(--border);" onscroll="checkLegalScroll(this)">
       <p><strong>Please read carefully before proceeding.</strong></p>
-      <p>Cine Softwares and the Cine-Cloud platform are not hosting, storing, or distributing any of the games presented on this application. All games are merely embedded via standard iFrames pointing directly to their original providers.</p>
+      <p>GoonCore and the GoonCore-Cloud platform are not hosting, storing, or distributing any of the games presented on this application. All games are merely embedded via standard iFrames pointing directly to their original providers.</p>
       <p>We do not claim ownership of any trademarks, copyrighted materials, or intellectual property displayed within the application. If there are any legal disputes or DMCA claims regarding the hosting and playing of these games, they should be directed towards the source host, <strong>Raccoon Games</strong>.</p>
-      <p>By clicking "I Agree", you acknowledge that Cine Softwares acts solely as a UI aggregator and is free from any liability regarding third-party content.</p>
+      <p>By clicking "I Agree", you acknowledge that GoonCore acts solely as a UI aggregator and is free from any liability regarding third-party content.</p>
       <p><em>Scroll to the bottom to accept. NOTE THIS PLEASE, YOU MUST ALLOW POP UPS!</em></p><br><br><br><br>
       <p>End of notice.</p>
     </div>
@@ -640,7 +629,7 @@ body {
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
     </div>
     <h2>Session Active</h2>
-    <p>You're already playing a game! Make sure to exit your current session before starting a new one.</p> <! feel like i had to add thos cuz why not !>
+    <p>You're already playing a game! Make sure to exit your current session before starting a new one.</p>
     <div class="popup-btn-row">
       
       <button class="popup-btn primary" style="width: 100%;" onclick="hidePopup('p-sess-block')">Got it</button>
@@ -666,12 +655,12 @@ body {
   <iframe id="gF" allow="autoplay;fullscreen;pointer-lock;keyboard-map;clipboard-read;clipboard-write;gamepad" style="width:100%; height:100%; border:none; display:block; outline:none;"></iframe>
 </div>
 
-<script src="/random/gamelayout.js"></script>
+<script src="random/gamelayout.js"></script>
 
 <script>
-//  THE FUNCTIONALITTTYTYYYYYYYYY!!! 
-let lsDB = JSON.parse(localStorage.getItem('cine_store_v10') || '{}');
-function sLS() { localStorage.setItem('cine_store_v10', JSON.stringify(lsDB)); }
+//  THE FUNCTIONALITY!!!
+let lsDB = JSON.parse(localStorage.getItem('gooncore_store_v1') || '{}');
+function sLS() { localStorage.setItem('gooncore_store_v1', JSON.stringify(lsDB)); }
 
 function msToTm(s) {
   if(!s) return "0m";
@@ -688,7 +677,7 @@ function tsToDt(t) {
 }
 
 
-  // tell the time use rplayed 
+  // tell the time user played
 function formatPlaytimeHover(secs) {
   if(!secs) return "00d:00h:00m";
   let d = Math.floor(secs / 86400);
@@ -699,7 +688,7 @@ function formatPlaytimeHover(secs) {
 
 window.addEventListener('load', () => {
   // legal notice
-  if(!localStorage.getItem('cine_legal_accepted')) {
+  if(!localStorage.getItem('gooncore_legal_accepted')) {
     showPopup('p-legal-block');
   }
 
@@ -737,7 +726,6 @@ function dodeLayout() {
   let rnd = [...G_DATA].sort(() => 0.5 - Math.random()).slice(0, 3);
   rnd.forEach(r => {
     if(!heroArr.find(x => x.id === r.id)) {
-     
       heroArr.push({...r, tag: 'FEATURED', sub: r.tags.join(" • ")});
     }
   });
@@ -754,24 +742,22 @@ function dodeLayout() {
   
   let popFilter = G_DATA.filter(g => g.n.toLowerCase().includes('poppy'));
   let raceFilter = G_DATA.filter(g => g.tags.includes('Racing') || g.tags.includes('Driving'));
-  let recFilter = [...G_DATA].sort(() => 0.5 - Math.random()).slice(0, 10); // Recommendations
+  let recFilter = [...G_DATA].sort(() => 0.5 - Math.random()).slice(0, 10);
   
   G_DATA.forEach((g, i) => {
     libHtml += makethecard(g, 'v');
     if(i < 4) dayHtml += makethecard(g, 'h');
-    // Trending limit fix -> Only take next 4
     else if(i >= 4 && i < 8) trndHtml += makethecard(g, 'h');
   });
 
   let recHtml = recFilter.map(g => makethecard(g, 'h')).join('');
 
-  //category functions
-  document.getElementById('g-recom-track').innerHTML = recHtml + recHtml; // DUPE FOR COOL EFFECT!
-  document.getElementById('g-poppy').innerHTML = popFilter.map(g => makethecard(g, 'h')).join(''); //POPPY GAMES
-  document.getElementById('g-race').innerHTML = raceFilter.slice(0, 4).map(g => makethecard(g, 'h')).join(''); //RACING GAMES
+  document.getElementById('g-recom-track').innerHTML = recHtml + recHtml;
+  document.getElementById('g-poppy').innerHTML = popFilter.map(g => makethecard(g, 'h')).join('');
+  document.getElementById('g-race').innerHTML = raceFilter.slice(0, 4).map(g => makethecard(g, 'h')).join('');
   document.getElementById('g-day').innerHTML = dayHtml;
-  document.getElementById('g-trnd').innerHTML = trndHtml; //TRENDING
-  document.getElementById('g-lib').innerHTML = libHtml; //LIBRARY
+  document.getElementById('g-trnd').innerHTML = trndHtml;
+  document.getElementById('g-lib').innerHTML = libHtml;
 
   rfrTrk();
 }
@@ -825,14 +811,14 @@ function chgTab(v) {
   document.getElementById('v-'+v).classList.add('active');
 }
 
-// the auto detecting like when the user logged in
+// auto detecting when the user logged in
 let isAuth = false;
 let devMode = false;
 
 function openAuthTray() {
   document.getElementById('login-trigger').style.display = 'none';
   document.getElementById('rac-frame').src = "https://www.raccoongame.com/login?redirect_uri=https%3A%2F%2Fwww.raccoongame.com%2Fwap%2Fdist%2F%23%2Fplatform%2Fset&lang=en";
-  document.getElementById('frame-area').classList.add('show'); // try to fix this stupid login issue.
+  document.getElementById('frame-area').classList.add('show');
 }
 
 function markAsLoggedIn() {
@@ -861,16 +847,16 @@ document.getElementById('rac-frame').addEventListener('load', function() {
   }
 });
 
-// SECRET Developer Mode Alt + S , when user does this they can view the iframe even if they logged in
+// SECRET Developer Mode Alt + S
 window.addEventListener('keydown', (e) => {
   if(e.altKey && e.key.toLowerCase() === 's') {
     devMode = true;
-    frameLoadCount = 0; // reset
+    frameLoadCount = 0;
     forceLoginReopen();
   }
 });
 
-//  APP LIKE FEELING, so i wanted to open windows
+//  APP LIKE FEELING
 function showPopup(id) {
   let el = document.getElementById(id);
   el.style.display = 'flex';
@@ -900,7 +886,7 @@ function checkLegalScroll(el) {
   }
 }
 function acceptLegal() {
-  localStorage.setItem('cine_legal_accepted', 'true');
+  localStorage.setItem('gooncore_legal_accepted', 'true');
   hidePopup('p-legal-block');
 }
 
@@ -1187,32 +1173,6 @@ function tkAction() {
     }
   }
 }
-
-//IGNORE!!!! im too lazy to remove all dis
-  //let gl =
-
-
-
-  // IDEAS: Windows, Steam, 
-
-
-
-
-
-
-  // function renderHe
-
-
-
-  //
-
-
-
-
-
-
-
-  // TEMP NOT WOKRING EMAIL LIST!: https://temp-mail.org/en/ , https://temp-mail.io/en , https://tempmailo.com/
 </script>
 </body>
 </html>
