@@ -408,6 +408,36 @@ body {
   flex-direction: column;
 }
 
+/* MUSIC PLAYER */
+.genre-btn {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--muted); padding: 9px 18px; border-radius: 100px;
+  font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.genre-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.genre-btn.active { color: #000; background: #fff; border-color: #fff; font-weight: 600; }
+
+.track-card {
+  background: rgba(18,18,22,0.6); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.track-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.2); box-shadow: 0 16px 40px rgba(0,0,0,0.7); }
+.track-card.playing { border-color: rgba(255,255,255,0.5); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+.track-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #111; }
+.track-card .tc-info { padding: 14px; }
+.track-card .tc-title { font-size: 13px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+.track-card .tc-artist { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.track-card .tc-plays { font-size: 10px; color: #555; margin-top: 6px; }
+.track-card .tc-play-overlay {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: 0.2s;
+}
+.track-card:hover .tc-play-overlay { opacity: 1; }
+.tc-img-wrap { position: relative; }
+
 .media-bar {
   position: absolute; top: 0; left: 50%; transform: translateX(-50%);
   z-index: 10; display: flex; gap: 10px; padding-top: 0;
@@ -584,6 +614,70 @@ body {
     ></iframe>
   </div>
 
+  <!-- MUSIC TAB -->
+  <div id="v-music" class="tab-view">
+
+    <!-- NOW PLAYING BAR -->
+    <div id="now-playing-bar" style="
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,12,0.85); backdrop-filter: blur(30px);
+      border: 1px solid var(--border); border-radius: 20px;
+      padding: 18px 28px; margin-bottom: 40px;
+      display: flex; align-items: center; gap: 20px;
+    ">
+      <img id="np-art" src="" style="width:56px; height:56px; border-radius:10px; object-fit:cover; background:#111; flex-shrink:0; border:1px solid var(--border);">
+      <div style="flex:1; min-width:0;">
+        <div id="np-title" style="font-size:15px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#fff;">No track playing</div>
+        <div id="np-artist" style="font-size:12px; color:var(--muted); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Select a track below</div>
+        <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+          <span id="np-cur" style="font-size:11px; color:var(--muted); width:34px;">0:00</span>
+          <div id="np-bar-bg" onclick="seekAudio(event)" style="flex:1; height:4px; background:rgba(255,255,255,0.1); border-radius:4px; cursor:pointer; position:relative;">
+            <div id="np-bar-fill" style="height:100%; width:0%; background:#fff; border-radius:4px; transition:width 0.5s linear; pointer-events:none;"></div>
+          </div>
+          <span id="np-dur" style="font-size:11px; color:var(--muted); width:34px; text-align:right;">0:00</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; flex-shrink:0;">
+        <button onclick="prevTrack()" style="background:none; border:none; color:#aaa; cursor:pointer; padding:8px; border-radius:50%; transition:0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+        </button>
+        <button id="np-playbtn" onclick="togglePlay()" style="width:48px; height:48px; border-radius:50%; background:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='#fff'">
+          <svg id="np-play-icon" width="20" height="20" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button onclick="nextTrack()" style="background:none; border:none; color:#aaa; cursor:pointer; padding:8px; border-radius:50%; transition:0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm8.5-6v6h2V6h-2v6z"/></svg>
+        </button>
+        <div style="display:flex; align-items:center; gap:8px; margin-left:8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+          <input id="vol-slider" type="range" min="0" max="100" value="80" oninput="setVol(this.value)" style="width:70px; accent-color:#fff; cursor:pointer;">
+        </div>
+      </div>
+    </div>
+
+    <!-- GENRE TABS -->
+    <div style="display:flex; gap:10px; margin-bottom:30px; flex-wrap:wrap;">
+      <button class="genre-btn active" onclick="loadGenre('All', this)">🔥 Trending</button>
+      <button class="genre-btn" onclick="loadGenre('Electronic', this)">⚡ Electronic</button>
+      <button class="genre-btn" onclick="loadGenre('Hip-Hop/Rap', this)">🎤 Hip-Hop</button>
+      <button class="genre-btn" onclick="loadGenre('Pop', this)">🌟 Pop</button>
+      <button class="genre-btn" onclick="loadGenre('R&B/Soul', this)">🎷 R&B</button>
+      <button class="genre-btn" onclick="loadGenre('Rock', this)">🎸 Rock</button>
+      <button class="genre-btn" onclick="loadGenre('Lo-Fi', this)">🌙 Lo-Fi</button>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="lib-search-wrap" style="margin-bottom:30px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="music-search" placeholder="Search artists, tracks..." oninput="searchMusic(this.value)">
+    </div>
+
+    <!-- TRACK GRID -->
+    <div class="sec-head" id="music-section-head" style="margin-top:0;">🔥 Trending on Audius</div>
+    <div id="music-loading" style="text-align:center; padding:60px; color:var(--muted); font-size:14px;">Loading tracks...</div>
+    <div id="track-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:20px;"></div>
+
+  </div>
+
 </div>
 
 
@@ -594,6 +688,7 @@ body {
     <div class="d-btn active" id="b-home" onclick="chgTab('home')">GoonCore</div>
     <div class="d-btn" id="b-lib" onclick="chgTab('lib')">Library</div>
     <div class="d-btn" id="b-media" onclick="chgTab('media')">Movies & TV</div>
+    <div class="d-btn" id="b-music" onclick="chgTab('music')">Music</div>
     <div class="d-btn" id="b-tut" onclick="chgTab('tut')">Tutorial</div>
   </div>
 
@@ -1250,6 +1345,172 @@ function tkAction() {
       try2launch();
     }
   }
+}
+
+// ============ AUDIUS MUSIC PLAYER ============
+let audiusHost = '';
+let currentTracks = [];
+let currentTrackIdx = -1;
+let audioEl = new Audio();
+let musicLoaded = false;
+let searchTimeout = null;
+
+audioEl.volume = 0.8;
+
+// fetch a working Audius host then kick off
+async function initAudius() {
+  if(musicLoaded) return;
+  try {
+    const res = await fetch('https://api.audius.co');
+    const data = await res.json();
+    audiusHost = data.data[0];
+    loadGenre('All', document.querySelector('.genre-btn.active'));
+    musicLoaded = true;
+  } catch(e) {
+    document.getElementById('music-loading').innerText = 'Could not connect to Audius. Check your connection.';
+  }
+}
+
+async function loadGenre(genre, btn) {
+  if(!audiusHost) { await initAudius(); return; }
+  document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+
+  document.getElementById('music-loading').style.display = 'block';
+  document.getElementById('track-grid').innerHTML = '';
+
+  let url = genre === 'All'
+    ? `${audiusHost}/v1/tracks/trending?app_name=GoonCore&limit=40`
+    : `${audiusHost}/v1/tracks/trending?app_name=GoonCore&genre=${encodeURIComponent(genre)}&limit=40`;
+
+  document.getElementById('music-section-head').innerText =
+    genre === 'All' ? '🔥 Trending on Audius' : `🎵 ${genre}`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    currentTracks = data.data || [];
+    renderTracks(currentTracks);
+  } catch(e) {
+    document.getElementById('music-loading').innerText = 'Failed to load tracks.';
+  }
+}
+
+async function searchMusic(query) {
+  clearTimeout(searchTimeout);
+  if(!query.trim()) { loadGenre('All', document.querySelector('.genre-btn.active')); return; }
+  searchTimeout = setTimeout(async () => {
+    if(!audiusHost) await initAudius();
+    document.getElementById('music-loading').style.display = 'block';
+    document.getElementById('track-grid').innerHTML = '';
+    document.getElementById('music-section-head').innerText = `🔍 Results for "${query}"`;
+    try {
+      const res = await fetch(`${audiusHost}/v1/tracks/search?app_name=GoonCore&query=${encodeURIComponent(query)}&limit=40`);
+      const data = await res.json();
+      currentTracks = data.data || [];
+      renderTracks(currentTracks);
+    } catch(e) {
+      document.getElementById('music-loading').innerText = 'Search failed.';
+    }
+  }, 500);
+}
+
+function renderTracks(tracks) {
+  document.getElementById('music-loading').style.display = 'none';
+  const grid = document.getElementById('track-grid');
+  if(!tracks.length) { grid.innerHTML = '<p style="color:var(--muted);padding:40px;">No tracks found.</p>'; return; }
+
+  grid.innerHTML = tracks.map((t, i) => {
+    const art = t.artwork ? (t.artwork['480x480'] || t.artwork['150x150'] || '') : '';
+    const plays = t.play_count ? fmtNum(t.play_count) + ' plays' : '';
+    return `<div class="track-card" id="tc-${t.id}" onclick="playTrack(${i})">
+      <div class="tc-img-wrap">
+        <img src="${art}" onerror="this.src=''" loading="lazy">
+        <div class="tc-play-overlay">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="tc-info">
+        <div class="tc-title">${esc(t.title)}</div>
+        <div class="tc-artist">${esc(t.user?.name || '')}</div>
+        <div class="tc-plays">${plays}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function fmtNum(n) {
+  if(n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if(n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return n;
+}
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtTime(s) { if(!s||isNaN(s)) return '0:00'; let m=Math.floor(s/60),sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
+
+async function playTrack(idx) {
+  if(idx < 0 || idx >= currentTracks.length) return;
+  currentTrackIdx = idx;
+  const t = currentTracks[idx];
+
+  // highlight active card
+  document.querySelectorAll('.track-card').forEach(c => c.classList.remove('playing'));
+  const card = document.getElementById('tc-'+t.id);
+  if(card) { card.classList.add('playing'); card.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+
+  // update now playing bar
+  const art = t.artwork ? (t.artwork['480x480'] || t.artwork['150x150'] || '') : '';
+  document.getElementById('np-art').src = art;
+  document.getElementById('np-title').innerText = t.title;
+  document.getElementById('np-artist').innerText = t.user?.name || '';
+  document.getElementById('np-bar-fill').style.width = '0%';
+  document.getElementById('np-cur').innerText = '0:00';
+  document.getElementById('np-dur').innerText = t.duration ? fmtTime(t.duration) : '...';
+
+  // stream
+  audioEl.pause();
+  audioEl.src = `${audiusHost}/v1/tracks/${t.id}/stream?app_name=GoonCore`;
+  audioEl.play().catch(()=>{});
+  setPauseIcon();
+}
+
+function togglePlay() {
+  if(audioEl.paused) { audioEl.play(); setPauseIcon(); }
+  else { audioEl.pause(); setPlayIcon(); }
+}
+function setPlayIcon() { document.getElementById('np-play-icon').innerHTML = '<path d="M8 5v14l11-7z"/>'; }
+function setPauseIcon() { document.getElementById('np-play-icon').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; }
+
+function prevTrack() { if(currentTrackIdx > 0) playTrack(currentTrackIdx - 1); }
+function nextTrack() { if(currentTrackIdx < currentTracks.length - 1) playTrack(currentTrackIdx + 1); }
+
+function setVol(v) { audioEl.volume = v / 100; }
+
+function seekAudio(e) {
+  if(!audioEl.duration) return;
+  const bar = document.getElementById('np-bar-bg');
+  const rect = bar.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  audioEl.currentTime = pct * audioEl.duration;
+}
+
+audioEl.addEventListener('timeupdate', () => {
+  if(!audioEl.duration) return;
+  const pct = (audioEl.currentTime / audioEl.duration) * 100;
+  document.getElementById('np-bar-fill').style.width = pct + '%';
+  document.getElementById('np-cur').innerText = fmtTime(audioEl.currentTime);
+});
+audioEl.addEventListener('loadedmetadata', () => {
+  document.getElementById('np-dur').innerText = fmtTime(audioEl.duration);
+});
+audioEl.addEventListener('ended', () => { nextTrack(); });
+audioEl.addEventListener('pause', () => { setPlayIcon(); });
+audioEl.addEventListener('play', () => { setPauseIcon(); });
+
+// auto-init when Music tab is opened
+const _origChgTab = chgTab;
+function chgTab(v) {
+  _origChgTab(v);
+  if(v === 'music' && !musicLoaded) initAudius();
 }
 </script>
 </body>
