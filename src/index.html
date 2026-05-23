@@ -982,6 +982,9 @@ function chgTab(v) {
   } else {
     document.getElementById('app-wrap').classList.remove('media-active');
   }
+
+  // init music player on first open
+  if(v === 'music' && !musicLoaded) initAudius();
 }
 
 // auto detecting when the user logged in
@@ -1505,13 +1508,6 @@ audioEl.addEventListener('loadedmetadata', () => {
 audioEl.addEventListener('ended', () => { nextTrack(); });
 audioEl.addEventListener('pause', () => { setPlayIcon(); });
 audioEl.addEventListener('play', () => { setPauseIcon(); });
-
-// auto-init when Music tab is opened
-const _origChgTab = chgTab;
-function chgTab(v) {
-  _origChgTab(v);
-  if(v === 'music' && !musicLoaded) initAudius();
-}
 </script>
 </body>
 </html>
