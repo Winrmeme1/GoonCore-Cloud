@@ -1,7 +1,7 @@
-# Cine-Cloud
+# GoonCore-Cloud
 
 
-Welcome to Cine-Cloud Repo!
+Welcome to GoonCore-Cloud Repo!
 
 WE ARE FINALLY PUBLIC! Feel free to copy or fork, or whatever! :)
 
