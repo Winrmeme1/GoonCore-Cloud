@@ -398,6 +398,61 @@ body {
 }
 .verify-manual-btn:hover { background: #fff; color: #000; }
 
+/* MOVIES & TV LAYER */
+#media-layer {
+  display: none; position: fixed; inset: 0; background: #000; z-index: 800;
+  flex-direction: column;
+}
+
+.media-bar {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  z-index: 10; display: flex; gap: 10px; padding-top: 0;
+}
+
+#media-frame {
+  width: 100%; height: 100%; border: none; display: block;
+}
+
+/* Movies category grid */
+.cat-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px;
+}
+
+.cat-card {
+  aspect-ratio: 2/3; border-radius: 12px; overflow: hidden; cursor: pointer;
+  background: #111; border: 1px solid var(--border);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative;
+}
+.cat-card:hover { transform: translateY(-8px) scale(1.03); border-color: rgba(255,255,255,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+.cat-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
+.cat-card:hover img { opacity: 1; }
+.cat-card .cat-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 30px 12px 12px; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+}
+
+.media-hero {
+  width: 100%; height: 420px; border-radius: 20px; overflow: hidden; position: relative;
+  cursor: pointer; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.media-hero:hover { transform: translateY(-6px); box-shadow: 0 30px 80px rgba(0,0,0,0.8); }
+.media-hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
+.media-hero:hover img { opacity: 1; transform: scale(1.03); }
+.media-hero .h-over { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 45px; }
+.media-hero .h-title { font-size: 48px; font-weight: 800; margin: 0 0 8px 0; letter-spacing: -2px; }
+.media-hero .h-sub { font-size: 14px; color: #aaa; display: flex; gap: 16px; }
+
+.media-play-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: #000; border: none; padding: 14px 32px;
+  border-radius: 100px; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px;
+  align-self: flex-start;
+}
+.media-play-btn:hover { background: #e0e0e0; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255,255,255,0.2); }
+
 </style>
 </head>
 <body>
@@ -514,6 +569,77 @@ body {
     </div>
   </div>
 
+  <!-- MOVIES & TV TAB -->
+  <div id="v-media" class="tab-view">
+    <div class="media-hero" onclick="openMedia('movie', 'tt1877830')">
+      <img src="https://image.tmdb.org/t/p/original/5P8SmMzm2tRCVMFcWKHBFsXhqO1.jpg">
+      <div class="h-over">
+        <div class="h-tag">FEATURED FILM</div>
+        <div class="h-title">The Batman</div>
+        <div class="h-sub"><span>2022</span><span>•</span><span>Action / Crime</span><span>•</span><span>2h 56m</span></div>
+        <button class="media-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg>
+          Watch Now
+        </button>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:50px;">🔥 Trending Movies</div>
+    <div class="cat-grid" id="trending-movies">
+      <div class="cat-card" onclick="openMedia('movie','tt15398776')"><img src="https://image.tmdb.org/t/p/w500/A4j8S6moJS2zNtRR8oWF08gRnL5.jpg"><div class="cat-label">Oppenheimer</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt9362722')"><img src="https://image.tmdb.org/t/p/w500/4m1Au3YkjqsxF8iwQy0fPYSxE0h.jpg"><div class="cat-label">Spider-Man: Across the Spider-Verse</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt1517268')"><img src="https://image.tmdb.org/t/p/w500/iuFNMS8vlbztu890sQODoIB5Gyt.jpg"><div class="cat-label">Barbie</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt16366836')"><img src="https://image.tmdb.org/t/p/w500/feSiISwgEpVzR1v3zv2n2Wu4bms.jpg"><div class="cat-label">Dune: Part Two</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt6791350')"><img src="https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg"><div class="cat-label">Guardians of the Galaxy Vol. 3</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt11389872')"><img src="https://image.tmdb.org/t/p/w500/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg"><div class="cat-label">Inside Out 2</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt21807222')"><img src="https://image.tmdb.org/t/p/w500/wWba3TaojhK7NdycRhoQpsG0FaH.jpg"><div class="cat-label">Deadpool & Wolverine</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt4154796')"><img src="https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg"><div class="cat-label">Avengers: Endgame</div></div>
+    </div>
+
+    <div class="sec-head">📺 Popular TV Shows</div>
+    <div class="cat-grid" id="popular-tv">
+      <div class="cat-card" onclick="openMedia('tv','tt5491994')"><img src="https://image.tmdb.org/t/p/w500/xXXEn3wh0S9fPOkhJTh9pAmKJaJ.jpg"><div class="cat-label">Planet Earth III</div></div>
+      <div class="cat-card" onclick="openMedia('tv','tt0903747')"><img src="https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"><div class="cat-label">Breaking Bad</div></div>
+      <div class="cat-card" onclick="openMedia('tv','tt7366338')"><img src="https://image.tmdb.org/t/p/w500/sWgBv7LV2QdWAWUVn66jo5Md12T.jpg"><div class="cat-label">The Last of Us</div></div>
+      <div class="cat-card" onclick="openMedia('tv','tt7660850')"><img src="https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg"><div class="cat-label">Succession</div></div>
+      <div class="cat-card" onclick="openMedia('tv','tt6468322')"><img src="https://image.tmdb.org/t/p/w500/xXxcAya4foX4k3eQPX53hHuzaWP.jpg"><div class="cat-label">The Boys</div></div>
+      <div class="cat-card" onclick="openMedia('tv','tt1190634')"><img src="https://image.tmdb.org/t/p/w500/jnHxfEHnAiJ8cRGCXKH3mJgVTaj.jpg"><div class="cat-label">House of the Dragon</div></div>
+      <div class="cat-card" onclick="openMedia('tv','tt21113388')"><img src="https://image.tmdb.org/t/p/w500/vbZQXkKFNPEBMBPFVAFJBGFU3ER.jpg"><div class="cat-label">Shōgun</div></div>
+      <div class="cat-card" onclick="openMedia('tv','tt14539740')"><img src="https://image.tmdb.org/t/p/w500/58AkdHKBMbGFxMWDHmHzHD7m6Hh.jpg"><div class="cat-label">The Bear</div></div>
+    </div>
+
+    <div class="sec-head">💥 Action & Thriller</div>
+    <div class="cat-grid" id="action-movies">
+      <div class="cat-card" onclick="openMedia('movie','tt9603212')"><img src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"><div class="cat-label">Extraction 2</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt5433140')"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"><div class="cat-label">Fast X</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt9114286')"><img src="https://image.tmdb.org/t/p/w500/h8gHn0OzBoaefsYseUByqsmEDMY.jpg"><div class="cat-label">Top Gun: Maverick</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt1745960')"><img src="https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggkl.jpg"><div class="cat-label">John Wick 4</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt0816692')"><img src="https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"><div class="cat-label">Interstellar</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt6263850')"><img src="https://image.tmdb.org/t/p/w500/mIBCtPvKZQlxubxKMeViO2UrP3q.jpg"><div class="cat-label">Mission: Impossible – Dead Reckoning</div></div>
+    </div>
+
+    <div class="sec-head">👻 Horror</div>
+    <div class="cat-grid" id="horror-movies">
+      <div class="cat-card" onclick="openMedia('movie','tt15671028')"><img src="https://image.tmdb.org/t/p/w500/cltnMGHIGPSCaTvBXMTBkcrMqHf.jpg"><div class="cat-label">Evil Dead Rise</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt9288052')"><img src="https://image.tmdb.org/t/p/w500/6CoRTJTmijhBLJTUNoVSUNxZMEI.jpg"><div class="cat-label">The Nun II</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt2231461')"><img src="https://image.tmdb.org/t/p/w500/i7SnwZfEsOG6apSMGbnEhj9EB0E.jpg"><div class="cat-label">It Chapter Two</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt7784604')"><img src="https://image.tmdb.org/t/p/w500/k0OFrMgPaVensFOWHInJnlBBr7a.jpg"><div class="cat-label">Smile</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt21234874')"><img src="https://image.tmdb.org/t/p/w500/mHMBsXVLjPx6E2uXUXG3opjU6mZ.jpg"><div class="cat-label">Talk to Me</div></div>
+      <div class="cat-card" onclick="openMedia('movie','tt6751668')"><img src="https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"><div class="cat-label">Parasite</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MEDIA PLAYER LAYER -->
+<div id="media-layer">
+  <div class="media-bar">
+    <div class="top-notch" id="n-media" style="position:relative; left:auto; top:auto; transform:none; cursor:pointer; background:rgba(255,255,255,0.15);" onclick="closeMedia()">
+      <span id="n-media-title" style="color:#fff;">Movies & TV</span>
+      <span style="margin-left:8px; color:#ff4d4d; font-weight:bold; font-size:16px;">×</span>
+    </div>
+  </div>
+  <iframe id="media-frame" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
 </div>
 
 
@@ -523,6 +649,7 @@ body {
     <div class="d-sep"></div>
     <div class="d-btn active" id="b-home" onclick="chgTab('home')">GoonCore</div>
     <div class="d-btn" id="b-lib" onclick="chgTab('lib')">Library</div>
+    <div class="d-btn" id="b-media" onclick="chgTab('media')">Movies & TV</div>
     <div class="d-btn" id="b-tut" onclick="chgTab('tut')">Tutorial</div>
   </div>
 
@@ -655,7 +782,7 @@ body {
   <iframe id="gF" allow="autoplay;fullscreen;pointer-lock;keyboard-map;clipboard-read;clipboard-write;gamepad" style="width:100%; height:100%; border:none; display:block; outline:none;"></iframe>
 </div>
 
-<script src="random/gamelayout.js"></script>
+<script src="/random/gamelayout.js"></script>
 
 <script>
 //  THE FUNCTIONALITY!!!
@@ -1172,6 +1299,28 @@ function tkAction() {
       try2launch();
     }
   }
+}
+
+// MOVIES & TV
+function openMedia(type, imdbId) {
+  let url = '';
+  if(type === 'movie') {
+    url = `https://www.cineby.sc/movie/${imdbId}`;
+  } else if(type === 'tv') {
+    url = `https://www.cineby.sc/tv/${imdbId}`;
+  }
+  document.getElementById('media-frame').src = url;
+  document.getElementById('n-media-title').innerText = type === 'movie' ? '🎬 Movie' : '📺 TV Show';
+  document.getElementById('media-layer').style.display = 'flex';
+  document.getElementById('app-wrap').style.display = 'none';
+  document.querySelector('.dock-wrap').style.display = 'none';
+}
+
+function closeMedia() {
+  document.getElementById('media-layer').style.display = 'none';
+  document.getElementById('media-frame').src = '';
+  document.getElementById('app-wrap').style.display = 'block';
+  document.querySelector('.dock-wrap').style.display = 'flex';
 }
 </script>
 </body>
