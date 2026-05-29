@@ -586,14 +586,13 @@ body {
       <div id="frame-area">
        
         <div class="f-box" id="frame-wrapper">
-          
-         <h3>Log in with Raccoon</h3>
+          <h3>Log in with Raccoon</h3>
           <div style="margin-bottom: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
-            <p style="margin: 0 0 10px 0; color: #fff; font-size: 14px; font-weight: 600;">[BETA]: This is temporary, see if you can login by clicking the button below</p>
-            <a href="https://www.raccoongame.com/login?redirect_uri=https%3A%2F%2Fwww.raccoongame.com%2Fwap%2Fdist%2F%23%2Fplatform%2Fset&lang=en" target="_blank" style="display: inline-block; padding: 10px 20px; background: #fff; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 13px;">Open Login in New Tab</a>
+            <p style="margin: 0 0 12px 0; color: #ccc; font-size: 14px; line-height: 1.6;">Click below to open the Raccoon Games login in a popup. Log in there, then come back and click <strong style="color:#fff;">I've Logged In</strong>.</p>
+            <p style="margin: 0 0 15px 0; color: #888; font-size: 12px;">⚠️ Make sure popups are allowed for this site.</p>
+            <button onclick="openLoginPopup()" style="display: inline-block; padding: 12px 24px; background: #fff; color: #000; border: none; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='#fff'">🔓 Open Login Popup</button>
           </div>
-          <iframe id="rac-frame" class="f-rac" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
-          <button class="verify-manual-btn" onclick="markAsLoggedIn()">I have successfully logged in</button>
+          <button class="verify-manual-btn" onclick="markAsLoggedIn()">✅ I've Logged In</button>
         </div>
         <div class="f-box" id="mail-wrapper">
           <h3>Need a temp email?</h3>
@@ -812,8 +811,11 @@ body {
   <div id="lO" style="position:absolute; inset:0; background:rgba(10,10,15,0.95); z-index:9003; display:none; justify-content:center; align-items:center; flex-direction:column; color:#fff; font-family:sans-serif;">
     <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2" style="margin-bottom:20px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
     <h1 style="margin:0 0 10px 0; font-size:32px; font-weight:700; letter-spacing:-1px;">Session Expired</h1>
-    <p style="color:#aaa; font-size:16px; max-width:450px; line-height:1.6; margin-bottom: 30px;">Logged out. Go to Tutorial tab to log in.</p>
-    <button onclick="clsGm()" style="padding:14px 36px; background:#fff; color:#000; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer;">Close</button>
+    <p style="color:#aaa; font-size:16px; max-width:450px; line-height:1.6; text-align:center; margin-bottom: 24px;">Your Raccoon Games session expired. Log back in then relaunch your game.</p>
+    <div style="display:flex; gap:12px;">
+      <button onclick="openLoginPopup()" style="padding:14px 28px; background:#fff; color:#000; border:none; border-radius:12px; font-size:14px; font-weight:700; cursor:pointer;">🔓 Log In Again</button>
+      <button onclick="clsGm()" style="padding:14px 28px; background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:12px; font-size:14px; font-weight:700; cursor:pointer;">Close</button>
+    </div>
   </div>
   <button id="fB" onclick="mnLk()" style="position:absolute; top:60px; right:20px; z-index:9001; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:10px; border-radius:8px; cursor:pointer;" title="Hold ALT + Z for 3 secs to lock mouse">🖵</button>
   <div id="tD" style="position:absolute; top:-100px; left:50%; transform:translateX(-50%); z-index:9004; background:#000; border:2px solid #fff; border-radius:50%; width:50px; height:50px; display:flex; justify-content:center; align-items:center; color:#fff; font-family:sans-serif; font-weight:bold; font-size:20px; transition:top 0.3s ease;">3</div>
@@ -987,18 +989,36 @@ function chgTab(v) {
   if(v === 'music' && !musicLoaded) initAudius();
 }
 
-// auto detecting when the user logged in
+// LOGIN via popup window — shares cookie jar with game iframe, no sandboxing issues
 let isAuth = false;
-let devMode = false;
+let loginPopup = null;
 
 function openAuthTray() {
   document.getElementById('login-trigger').style.display = 'none';
-  document.getElementById('rac-frame').src = "https://www.raccoongame.com/login?redirect_uri=https%3A%2F%2Fwww.raccoongame.com%2Fwap%2Fdist%2F%23%2Fplatform%2Fset&lang=en";
   document.getElementById('frame-area').classList.add('show');
 }
 
+function openLoginPopup() {
+  const url = 'https://www.raccoongame.com/login?redirect_uri=https%3A%2F%2Fwww.raccoongame.com%2Fwap%2Fdist%2F%23%2Fplatform%2Fset&lang=en';
+  const w = 480, h = 680;
+  const left = Math.round(screen.width / 2 - w / 2);
+  const top  = Math.round(screen.height / 2 - h / 2);
+  loginPopup = window.open(url, 'raccoon_login', `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+  if (!loginPopup) {
+    alert('Popup was blocked!\n\nPlease allow popups for this site in your browser settings, then try again.');
+    return;
+  }
+  // auto-confirm when popup closes
+  const timer = setInterval(() => {
+    if (loginPopup && loginPopup.closed) {
+      clearInterval(timer);
+      markAsLoggedIn();
+    }
+  }, 800);
+}
+
 function markAsLoggedIn() {
-  if(isAuth) return;
+  if (isAuth) return;
   isAuth = true;
   document.getElementById('frame-area').classList.remove('show');
   setTimeout(() => { document.getElementById('frame-area').style.display = 'none'; }, 800);
@@ -1007,30 +1027,12 @@ function markAsLoggedIn() {
 }
 
 function forceLoginReopen() {
+  isAuth = false;
   document.getElementById('auth-success').style.display = 'none';
-  let f = document.getElementById('rac-frame');
-  f.src = "https://www.raccoongame.com/login?redirect_uri=https%3A%2F%2Fwww.raccoongame.com%2Fwap%2Fdist%2F%23%2Fplatform%2Fset&lang=en";
+  document.getElementById('login-trigger').style.display = 'inline-block';
   document.getElementById('frame-area').style.display = 'flex';
   setTimeout(() => { document.getElementById('frame-area').classList.add('show'); }, 50);
 }
-
-// Iframe Loading detection
-let frameLoadCount = 0;
-document.getElementById('rac-frame').addEventListener('load', function() {
-  frameLoadCount++;
-  if(frameLoadCount >= 2 && !devMode) {
-    markAsLoggedIn();
-  }
-});
-
-// SECRET Developer Mode Alt + S
-window.addEventListener('keydown', (e) => {
-  if(e.altKey && e.key.toLowerCase() === 's') {
-    devMode = true;
-    frameLoadCount = 0;
-    forceLoginReopen();
-  }
-});
 
 //  APP LIKE FEELING
 function showPopup(id) {
@@ -1225,13 +1227,14 @@ setInterval(()=>{
   if(document.getElementById('game-layer').style.display==='block'){
     try{
       let f=document.getElementById('gF');
-      if(f.contentWindow.location.href.includes('https://www.raccoongame.com/login?redirect_uri=https%3A%2F%2Fwww.raccoongame.com%2Fwap%2Fdist%2F%23%2Fplatform%2Fset&lang=en')){
-        if(sessionPopUp&&!sTg){
+      // if the game iframe redirected to the login page, session expired
+      if(f.contentWindow.location.href.includes('/login')){
+        if(!sTg){
           sTg=true;
           sTo=setTimeout(()=>{
             document.getElementById('lO').style.display='flex';
             if(document.exitPointerLock)document.exitPointerLock();
-          },10000);
+          },3000);
         }
       }else{
         sTg=false;
